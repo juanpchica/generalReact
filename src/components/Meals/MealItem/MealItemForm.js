@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 import classes from "./MealItemForm.module.css";
 
 import Input from "../../UI/Input";
 
-const MealItemForm = ({ id }) => {
+const MealItemForm = ({ id, onAddItem }) => {
+  const [amount, setAmount] = useState(1);
+
   return (
     <form className={classes.form}>
       <Input
@@ -15,10 +17,13 @@ const MealItemForm = ({ id }) => {
           min: "1",
           max: "5",
           step: "1",
-          defaultValue: "1",
+          onChange: (e) => setAmount(e.target.value),
+          value: amount,
         }}
       />
-      <button>+ Add</button>
+      <button type='button' onClick={() => onAddItem(amount)}>
+        + Add
+      </button>
     </form>
   );
 };
