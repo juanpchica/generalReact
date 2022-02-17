@@ -12,19 +12,23 @@ const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD":
       let items = [];
+      const updatedTotalAmount =
+        state.totalAmount + action.payload.price * action.payload.amount;
+
+      console.log(updatedTotalAmount, "TOTAL");
+
       const itemIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
       );
 
       if (itemIndex !== -1) {
-        console.log("itemIndex", itemIndex);
         items = state.items;
         items[itemIndex].amount += action.payload.amount;
       } else {
         items = [...state.items, action.payload];
       }
 
-      return { ...state, items };
+      return { ...state, totalAmount: updatedTotalAmount, items };
 
     default:
       break;
@@ -46,7 +50,7 @@ const CartProvider = (props) => {
 
   const cartContextValue = {
     items: state.items,
-    totalAmount: 0,
+    totalAmount: state.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
   };
