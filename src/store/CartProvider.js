@@ -13,7 +13,7 @@ const CartProvider = (props) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
-  const cartContext = {
+  const cartContextValue = {
     items,
     totalAmount: 0,
     addItem: addItemToCartHandler,
@@ -21,7 +21,7 @@ const CartProvider = (props) => {
   };
 
   return (
-    <CartContext.Provider value={cartContext}>
+    <CartContext.Provider value={cartContextValue}>
       {props.children}
     </CartContext.Provider>
   );
